@@ -50,10 +50,10 @@ class Category(PublishedModel):
 
         verbose_name = 'категория'
         verbose_name_plural = 'Категории'
-    
+
     def __str__(self):
         return self.title
-        
+
 
 class Post(PublishedModel):
     """Публикации"""
