@@ -1,9 +1,7 @@
 """Блог"""
-from typing import Union
 import datetime
 
-from django.http import Http404
-from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.shortcuts import render, get_object_or_404
 
 from blog.models import Post, Category
 
@@ -24,7 +22,9 @@ def post_detail(request, pk):
     """Детальное описание"""
     template = 'blog/detail.html'
     post = get_object_or_404(Post.objects.all().filter(
-        is_published=True, category__is_published=True, pub_date__date__lte=datetime.date.today(),pk=pk
+        is_published=True, category__is_published=True,
+        pub_date__date__lte=datetime.date.today(),
+        pk=pk
     ))
     context = {
         'post': post,

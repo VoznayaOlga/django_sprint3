@@ -25,9 +25,9 @@ class PostAdmin(admin.ModelAdmin):
         'location',
         'category',
         'is_published'
-    )    
+    )
     search_fields = ('title',)
-    list_filter = ('category','location')
+    list_filter = ('category', 'location')
     list_display_links = ('title',)
     empty_value_display = 'Не задано'
 
@@ -47,10 +47,10 @@ class CategoryAdmin(admin.ModelAdmin):
     )
     list_display = (
         'title',
-    )   
+    )
 
 
 # ...и регистрируем её в админке:
-admin.site.register(Category, CategoryAdmin) 
-admin.site.register(Location) 
-admin.site.register(Post, PostAdmin) 
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(Location)
+admin.site.register(Post, PostAdmin)
