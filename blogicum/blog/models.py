@@ -30,7 +30,7 @@ class Location(PublishedModel):
 
         verbose_name = 'местоположение'
         verbose_name_plural = 'Местоположения'
-        
+
     def __str__(self):
         return self.name[:settings.TITLE_MAX_LENGTH]
 
@@ -38,7 +38,8 @@ class Location(PublishedModel):
 class Category(PublishedModel):
     """Категории"""
 
-    title = models.CharField(verbose_name='Заголовок', max_length=settings.TITLE_MAX_LENGTH)
+    title = models.CharField(verbose_name='Заголовок',
+                             max_length=settings.TITLE_MAX_LENGTH)
     description = models.TextField(verbose_name='Описание')
     slug = models.SlugField(
         unique=True,
@@ -61,7 +62,7 @@ class Category(PublishedModel):
 class Post(PublishedModel):
     """Публикации"""
 
-    title = models.CharField(verbose_name='Название', 
+    title = models.CharField(verbose_name='Название',
                              max_length=settings.TITLE_MAX_LENGTH)
     text = models.TextField(verbose_name='Текст')
     pub_date = models.DateTimeField(

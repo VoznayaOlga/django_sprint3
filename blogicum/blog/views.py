@@ -42,7 +42,7 @@ def category_posts(request, category_slug):
 
     post_list = base_query_set(
         model=Post,
-        filter_={'is_published': True, 
+        filter_={'is_published': True,
                  'category': cur_category,
                  'pub_date__lte': timezone.now()})
     return render(request, 'blog/category.html',
