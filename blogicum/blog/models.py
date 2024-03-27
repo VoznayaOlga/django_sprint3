@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.conf import settings
 
 User = get_user_model()
 
@@ -21,27 +22,29 @@ class PublishedModel(models.Model):
 class Location(PublishedModel):
     """Местоположения"""
 
-    name = models.CharField(verbose_name='Название места', max_length=256)
+    name = models.CharField(verbose_name='Название места',
+                            max_length=settings.TITLE_MAX_LENGTH)
 
     class Meta:
         """Meta"""
 
         verbose_name = 'местоположение'
         verbose_name_plural = 'Местоположения'
-
+        
     def __str__(self):
-        return self.name
+        return self.name[:settings.TITLE_MAX_LENGTH]
 
 
 class Category(PublishedModel):
     """Категории"""
 
-    title = models.CharField(verbose_name='Заголовок', max_length=256)
+    title = models.CharField(verbose_name='Заголовок', max_length=settings.TITLE_MAX_LENGTH)
     description = models.TextField(verbose_name='Описание')
     slug = models.SlugField(
         unique=True,
-        help_text="""Идентификатор страницы для URL; разрешены"""
-        + """ символы латиницы, цифры, дефис и подчёркивание.""",
+        help_text=('Идентификатор страницы для URL; разрешены'
+                   ' символы латиницы, цифры, дефис и подчёркивание.'
+                   ),
         verbose_name='Идентификатор'
     )
 
@@ -52,18 +55,20 @@ class Category(PublishedModel):
         verbose_name_plural = 'Категории'
 
     def __str__(self):
-        return self.title
+        return self.title[:settings.TITLE_MAX_LENGTH]
 
 
 class Post(PublishedModel):
     """Публикации"""
 
-    title = models.CharField(verbose_name='Название', max_length=256)
+    title = models.CharField(verbose_name='Название', 
+                             max_length=settings.TITLE_MAX_LENGTH)
     text = models.TextField(verbose_name='Текст')
     pub_date = models.DateTimeField(
         verbose_name='Дата и время публикации',
-        help_text="""Если установить дату и время в будущем —"""
-        + """ можно делать отложенные публикации."""
+        help_text=('Если установить дату и время в будущем —'
+                   ' можно делать отложенные публикации.'
+                   )
     )
     author = models.ForeignKey(
         User,
@@ -72,7 +77,6 @@ class Post(PublishedModel):
     )
     location = models.ForeignKey(
         Location,
-        related_name='location',
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -80,7 +84,6 @@ class Post(PublishedModel):
     )
     category = models.ForeignKey(
         Category,
-        related_name='category',
         on_delete=models.SET_NULL,
         null=True,
         verbose_name='Категория'
@@ -91,6 +94,8 @@ class Post(PublishedModel):
 
         verbose_name = 'публикация'
         verbose_name_plural = 'Публикации'
+        default_related_name = 'posts'
+        ordering = ['-pub_date']
 
     def __str__(self):
-        return self.title
+        return self.title[:settings.TITLE_MAX_LENGTH]

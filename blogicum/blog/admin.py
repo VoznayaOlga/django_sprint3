@@ -1,7 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
-# Из модуля models импортируем модель Category...
 from .models import Category, Location, Post
 
 
@@ -50,7 +48,6 @@ class CategoryAdmin(admin.ModelAdmin):
     )
 
 
-# ...и регистрируем её в админке:
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Location)
 admin.site.register(Post, PostAdmin)
