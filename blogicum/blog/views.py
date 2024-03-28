@@ -37,6 +37,3 @@ def category_posts(request, category_slug):
     post_list = base_query_set(cur_category.posts.all())
     return render(request, 'blog/category.html',
                   context={'post_list': post_list, 'category': cur_category})
-
-
-
