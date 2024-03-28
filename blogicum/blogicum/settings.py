@@ -132,10 +132,3 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Mаксимальная длина строки
-
-TITLE_MAX_LENGTH = 256
-
-# Количество публикаций на странице
-
-POST_COUNT_LIMIT = 5
